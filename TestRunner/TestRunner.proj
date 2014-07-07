@@ -20,7 +20,7 @@
     <None Include="bower.json" />
     <None Include="packages.config" />
   </ItemGroup>
-  <Target Name="RestoreSolutionPackages">
+  <Target Name="RestoreSolutionPackages" DependsOnTargets="RestorePackages">
     <Exec Command="$(RestoreSolutionPackagesCommand)" WorkingDirectory="$(SolutionDir).nuget" />
   </Target>
   <Target Name="BowerInstall" DependsOnTargets="RestoreSolutionPackages">

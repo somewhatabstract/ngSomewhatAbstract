@@ -2,13 +2,15 @@
 ## <reference path="../angular-sa.js"/>
 ###
 
-describe 'saNavigationGuard', ->
+describe 'somewhatabstract - angular-sa', ->
   
-  Given -> module 'somewhatabstract'
-  
-  describe 'exists', ->
-    When => inject (saNavigationGuard) =>
-      @saNavigationGuard = saNavigationGuard
-    Then => expect(@saNavigationGuard).toBeDefined()
+  describe 'saNavigationGuard', ->
 
-describe 'saHttpActivityInterceptor', ->
+    Given -> module 'somewhatabstract'
+  
+    describe 'exists', ->
+      When => inject (saNavigationGuard) =>
+        @saNavigationGuard = saNavigationGuard
+      Then => expect(@saNavigationGuard).toBeDefined()
+
+  describe 'saHttpActivityInterceptor', ->
