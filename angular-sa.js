@@ -51,7 +51,7 @@
 			$window.onbeforeunload = onBeforeUnloadHandler;
 		}
 
-		$rootScope.on('$locationChangeStart', locationChangeStartHandler);
+		$rootScope.$on('$locationChangeStart', locationChangeStartHandler);
 
 		return {
 			registerGuardian: registerGuardian

@@ -49,6 +49,9 @@ x64/
 build/
 [Bb]in/
 [Oo]bj/
+
+#Test Stuff
+_Chutzpah*
 .[Bb]in/
 
 # MSTest test Results
