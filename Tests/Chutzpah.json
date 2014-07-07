@@ -1,0 +1,11 @@
+{
+    "Framework": "jasmine",
+    "CodeCoverageExcludes": [ "*/TestRunner/bower_components/*/*.js" ],
+    "References": [
+        {
+            "Path": "../TestRunner/bower_components/jasmine-given/jasmine-given.js",
+            "IsTestFrameworkFile": "true"
+        },
+        { "Path": "../TestRunner/bower_components/angular/angular.js" }
+    ]
+}

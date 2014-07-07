@@ -1,25 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="RunTests" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-	<PropertyGroup>
-		<RequireRestoreConsent>true</RequireRestoreConsent>
-		<DownloadNuGetExe>true</DownloadNuGetExe>
-		<RestorePackages>true</RestorePackages>
-		<JasmineTestsPath>$(SolutionDir)Tests</JasmineTestsPath>
-	</PropertyGroup>
-	<Import Project="$(SolutionDir).nuget\NuGet.targets" />
-	<PropertyGroup>
-		<RestoreSolutionPackagesCommand>$(NuGetCommand) install -solutionDir $(SolutionDir)</RestoreSolutionPackagesCommand>
-	</PropertyGroup>
-	<Target Name="RestoreSolutionPackages" DependsOnTargets="RestorePackages">
-		<Exec Command="$(RestoreSolutionPackagesCommand)" WorkingDirectory="$(SolutionDir).nuget" />
-	</Target>
-	<Target Name="RunTests" DependsOnTargets="RestoreSolutionPackages">
-		<!-- We dynamically create the test runner item in case we restored chutzpah -->
-		<CreateItem Include="$(SolutionDir)packages\**\tools\chutzpah.console.exe">
-			<Output TaskParameter="Include" ItemName="ChutzpahRunner"/>
-		</CreateItem>
-		
-		<Exec Command="@(ChutzpahRunner) /path $(JasmineTestsPath)" />
-	</Target>
+  <PropertyGroup>
+    <RequireRestoreConsent>true</RequireRestoreConsent>
+    <DownloadNuGetExe>true</DownloadNuGetExe>
+    <RestorePackages>true</RestorePackages>
+    <JasmineTestsPath>$(SolutionDir)Tests</JasmineTestsPath>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <ProjectGuid>{2AC8B520-398E-45F1-885A-E46ECA6962F6}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <PropertyGroup>
+    <RestoreSolutionPackagesCommand>$(NuGetCommand) install -solutionDir $(SolutionDir)</RestoreSolutionPackagesCommand>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include=".bin\bower.cmd" />
+    <None Include=".bin\git.cmd" />
+    <None Include=".bin\node.cmd" />
+    <None Include="bower.json" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Target Name="RestoreSolutionPackages">
+    <Exec Command="$(RestoreSolutionPackagesCommand)" WorkingDirectory="$(SolutionDir).nuget" />
+  </Target>
+  <Target Name="BowerInstall" DependsOnTargets="RestoreSolutionPackages">
+    <Exec Command=".bin\bower install" WorkingDirectory="$(ProjectDir)" />
+  </Target>
+  <Target Name="RunTests" DependsOnTargets="BowerInstall">
+    <!-- We dynamically create the test runner item in case we restored chutzpah -->
+    <CreateItem Include="$(SolutionDir)packages\**\tools\chutzpah.console.exe">
+      <Output TaskParameter="Include" ItemName="ChutzpahRunner" />
+    </CreateItem>
+    <Exec Command="@(ChutzpahRunner) /path $(JasmineTestsPath)" />
+  </Target>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
 </Project>

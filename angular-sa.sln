@@ -13,6 +13,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRunner", "TestRunner\TestRunner.csproj", "{2AC8B520-398E-45F1-885A-E46ECA6962F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{72C1553C-A350-4FDA-A687-5C823026377E}"
+	ProjectSection(SolutionItems) = preProject
+		Tests\angular-sa-test.coffee = Tests\angular-sa-test.coffee
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

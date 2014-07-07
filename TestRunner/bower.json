@@ -1,0 +1,23 @@
+{
+  "name": "angular-sa",
+  "version": "0.0.0",
+  "description": "Angular module of utilities, trinkets and musings",
+  "main": "..\\angular-sa.js",
+  "authors": [
+    "Jeff Yates"
+  ],
+  "license": "MIT",
+  "homepage": "http://blog.somewhatabstract.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jasmine-given": "~2.6.2",
+    "angular": "~1.2.19"
+  }
+}
