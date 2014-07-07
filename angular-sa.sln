@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{160C2C
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRunner", "TestRunner\TestRunner.csproj", "{2AC8B520-398E-45F1-885A-E46ECA6962F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRunner", "TestRunner\TestRunner.proj", "{2AC8B520-398E-45F1-885A-E46ECA6962F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{72C1553C-A350-4FDA-A687-5C823026377E}"
 	ProjectSection(SolutionItems) = preProject
@@ -19,12 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{72C1553C
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2AC8B520-398E-45F1-885A-E46ECA6962F6}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{2AC8B520-398E-45F1-885A-E46ECA6962F6}.Debug|Any CPU.Build.0 = Debug|x86
 		{2AC8B520-398E-45F1-885A-E46ECA6962F6}.Release|Any CPU.ActiveCfg = Debug|x86
 		{2AC8B520-398E-45F1-885A-E46ECA6962F6}.Release|Any CPU.Build.0 = Debug|x86
 	EndGlobalSection
