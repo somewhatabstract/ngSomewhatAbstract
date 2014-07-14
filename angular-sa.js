@@ -94,4 +94,30 @@
 			}
 		};
 	}]);
+    
+    sa.directive('saEditableField', function ($compile) {
+        return {
+            require: 'ngModel',
+            template: '<label>{{fieldName}}</label><input type="text" ng-model="fieldValue" /><button ng-click="showName()">Alert!</button>',
+            scope: {
+                fieldName: '@saFieldName',
+                fieldValue: '=ngModel'
+            },
+            link: function(scope, element, attrs, ctrl) {
+                element.on('mouseenter', function(){
+                    element.addClass('sa-highlight');
+                });
+                element.on('mouseleave', function(){
+                    element.removeClass('sa-highlight');
+                });
+            },
+            controller: function($scope) {
+                $scope.showName = function() {
+                    window.alert("Your " + $scope.fieldName + " is " + $scope.fieldValue);
+                };
+            }
+        };
+    });
+    
+    sa.directive('sa')
 })();
