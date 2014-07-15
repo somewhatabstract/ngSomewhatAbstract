@@ -103,14 +103,6 @@
                 fieldName: '@saFieldName',
                 fieldValue: '=ngModel'
             },
-            link: function(scope, element, attrs, ctrl) {
-                element.on('mouseenter', function(){
-                    element.addClass('sa-highlight');
-                });
-                element.on('mouseleave', function(){
-                    element.removeClass('sa-highlight');
-                });
-            },
             controller: function($scope) {
                 $scope.showName = function() {
                     window.alert("Your " + $scope.fieldName + " is " + $scope.fieldValue);
