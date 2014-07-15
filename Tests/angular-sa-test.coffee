@@ -41,3 +41,24 @@ describe 'somewhatabstract - angular-sa', ->
       When => inject (saNavigationGuard) =>
         @saNavigationGuard = saNavigationGuard
       Then => expect(@saNavigationGuard).toBeDefined()
+      
+  describe 'saEditableField', ->
+    describe 'exists', ->
+      When => inject (saEditableFieldDirective) =>
+        @saEditableField = saEditableFieldDirective
+      Then => expect(@saEditableField).toBeDefined()
+      
+    describe 'compiles', ->
+      Given => inject ($rootScope) =>
+        @scope = $rootScope.$new()
+        @scope.field = 'test'
+        @htmlFixture = angular.element('<sa-editable-field sa-field-name="Test" ng-model="field"></sa-editable-field>');
+      When => inject ($compile) =>
+        $compile(@htmlFixture)(@scope)
+        @scope.$apply()
+      Then => @htmlFixture.find('label').length == 1
+      And => @htmlFixture.find('label').text() == 'Test'
+      And => @htmlFixture.find('input').length == 1
+      And => @htmlFixture.find('button').length == 1
+      
+    

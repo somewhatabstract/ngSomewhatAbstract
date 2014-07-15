@@ -95,13 +95,17 @@
 		};
 	}]);
     
-    sa.directive('saEditableField', function ($compile) {
+    sa.directive('saEditableField', function () {
         return {
-            require: 'ngModel',
+        	restrict: 'E',
+			require: 'ngModel',
             template: '<label>{{fieldName}}</label><input type="text" ng-model="fieldValue" /><button ng-click="showName()">Alert!</button>',
             scope: {
                 fieldName: '@saFieldName',
                 fieldValue: '=ngModel'
+            },
+            link: function(scope) {
+	            console.log("I ran");
             },
             controller: function($scope) {
                 $scope.showName = function() {
@@ -110,6 +114,4 @@
             }
         };
     });
-    
-    sa.directive('sa')
 })();

@@ -19,6 +19,7 @@
   "dependencies": {
     "jasmine-given": "~2.6.2",
     "angular": "~1.2.19",
-    "angular-mocks": "~1.2.19"
+    "angular-mocks": "~1.2.19",
+    "lodash": "~2.4.1"
   }
 }
