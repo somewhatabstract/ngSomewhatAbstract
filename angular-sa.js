@@ -99,19 +99,18 @@
         return {
         	restrict: 'E',
 			require: 'ngModel',
-            template: '<label>{{fieldName}}</label><input type="text" ng-model="fieldValue" /><button ng-click="showName()">Alert!</button>',
+            template: '<label>{{fieldName}}</label><input type="text" ng-model="fieldValue" /><button ng-click="showField()">Alert!</button>',
             scope: {
                 fieldName: '@saFieldName',
                 fieldValue: '=ngModel'
             },
-            link: function(scope) {
-	            console.log("I ran");
-            },
-            controller: function($scope) {
-                $scope.showName = function() {
-                    window.alert("Your " + $scope.fieldName + " is " + $scope.fieldValue);
-                };
-            }
+            controller: 'saFieldController'
         };
     });
+
+	sa.controller('saFieldController', ['$scope', '$window', function($scope, $window) {
+		$scope.showField = function() {
+			$window.alert("Your " + $scope.fieldName + " is " + $scope.fieldValue);
+		};
+	}]);
 })();

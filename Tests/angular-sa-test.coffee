@@ -43,6 +43,10 @@ describe 'somewhatabstract - angular-sa', ->
       Then => expect(@saNavigationGuard).toBeDefined()
       
   describe 'saEditableField', ->
+    Given -> module ($provide) ->
+      fakeFieldController = jasmine.createSpyObj 'saFieldController', ['showField']
+      $provide.value 'saFieldController', fakeFieldController;return
+  
     describe 'exists', ->
       When => inject (saEditableFieldDirective) =>
         @saEditableField = saEditableFieldDirective
@@ -60,5 +64,48 @@ describe 'somewhatabstract - angular-sa', ->
       And => @htmlFixture.find('label').text() == 'Test'
       And => @htmlFixture.find('input').length == 1
       And => @htmlFixture.find('button').length == 1
-      
     
+  describe 'saFieldController', ->
+    Given -> module ($provide) ->
+      $provide.value '$window', jasmine.createSpyObj('$window', ['alert']);return
+      
+    describe 'exists', ->
+      Given => inject ($rootScope) =>
+        @scope = $rootScope.$new()
+      When => inject ($controller) =>
+        @saFieldController = $controller 'saFieldController', { $scope: @scope }
+      Then => expect(@saFieldController).toBeDefined()
+      
+    describe '#showField', ->
+      describe 'exists', ->
+        Given => inject ($rootScope) =>
+          @scope = $rootScope.$new()
+        When => inject ($controller) =>
+          @saFieldController = $controller 'saFieldController', { $scope: @scope }
+        Then => expect(@scope.showField).toEqual jasmine.any(Function)
+        
+      describe 'calls $window.alert', ->
+        Given => inject ($rootScope, $controller, $window) =>
+          @scope = $rootScope.$new()
+          @windowService = $window
+          @saFieldController = $controller 'saFieldController', { $scope: @scope }
+        When => @scope.showField()
+        Then => expect(@windowService.alert).toHaveBeenCalled()
+      
+      describe 'alert includes $scope.fieldName', ->
+        Given => inject ($rootScope, $controller, $window) =>
+          @scope = $rootScope.$new()
+          @scope.fieldName = "Test Name"
+          @windowService = $window
+          @saFieldController = $controller 'saFieldController', { $scope: @scope }
+        When => @scope.showField()
+        Then => expect(@windowService.alert.calls.mostRecent().args[0]).toMatch /.*Test Name.*/
+        
+      describe 'alert includes $scope.fieldValue', ->
+        Given => inject ($rootScope, $controller, $window) =>
+          @scope = $rootScope.$new()
+          @scope.fieldValue = "Test Value"
+          @windowService = $window
+          @saFieldController = $controller 'saFieldController', { $scope: @scope }
+        When => @scope.showField()
+        Then => expect(@windowService.alert.calls.mostRecent().args[0]).toMatch /.*Test Value.*/
